@@ -10,7 +10,7 @@ namespace RadencyTask2.Models.Books
 
         [ForeignKey("Book")]
         public long BookId { get; set; }
-        public virtual Book Book { get; set; }
+        public Book Book { get; set; }
 
         public int Score { get; set; }
     }

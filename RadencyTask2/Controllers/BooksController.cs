@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RadencyTask2.Models;
 using RadencyTask2.Models.Books;
+using RadencyTask2.Models.Books.View;
+using System.Collections.Generic;
 
 namespace RadencyTask2.Controllers
 {
@@ -10,17 +13,56 @@ namespace RadencyTask2.Controllers
     public class BooksController : ControllerBase
     {
         private readonly BooksDbContext _context;
+        private readonly IMapper _mapper;
 
-        public BooksController(BooksDbContext context)
+        public BooksController(BooksDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Books
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
+        public async Task<ActionResult<IEnumerable<BookView>>> GetBooks()
         {
-            return await _context.Books.ToListAsync();
+            string? orderBy = Request.Query["order"];
+
+            List<Book> books = await _context.Books
+                .Include(r => r.Reviews).ToListAsync();
+            //if (orderBy != null)
+            //{
+            //    orderBy = orderBy.ToLower();
+            //    if(orderBy == "title")
+            //    {
+            //        books = await _context.Books.OrderBy(x => x.Title).ToListAsync();
+            //    }
+            //    else if (orderBy == "author")
+            //    {
+            //        books = await _context.Books.OrderBy(x => x.Author).ToListAsync();
+            //    }
+            //    else
+            //    {
+            //        books = await _context.Books.ToListAsync();
+            //    }
+            //}
+            //else
+            //{
+            //    books = await _context.Books.ToListAsync();
+            //}
+
+            List<BookView> bookViews = _mapper.Map<List<BookView>>(books);
+            foreach(var bv in bookViews)
+            {
+                //bv.Rating = CalcAvarageRating(bv.Id);
+                bv.ReviewsNumber = CalcReviews(bv.Id);
+            }
+
+            //orderBy = orderBy.ToLower();
+            //if (orderBy == "author")
+            //{
+            //    return await _context.Books.OrderBy(x => x.Author).ToListAsync();
+            //}
+            return bookViews;
         }
 
         // GET: api/Books/5
@@ -97,6 +139,27 @@ namespace RadencyTask2.Controllers
         private bool BookExists(long id)
         {
             return _context.Books.Any(e => e.Id == id);
+        }
+
+        //private decimal? CalcAvarageRating(long id)
+        //{
+        //    var rates = _context.Ratings.Where(r => r.BookId == id);
+
+        //    if (rates.Any())
+        //    {
+        //        decimal generalRating = 0;
+        //        foreach (var rate in rates)
+        //        {
+        //            generalRating += rate.Score;
+        //        }
+        //        return generalRating / rates.Count();
+        //    }
+        //    return null;
+        //}
+
+        private decimal? CalcReviews(long id)
+        {
+            return _context.Reviews.Count(r => r.BookId == id);
         }
     }
 }

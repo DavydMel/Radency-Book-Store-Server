@@ -1,5 +1,8 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using RadencyTask2.Models;
+using RadencyTask2.Models.Books.View;
+using RadencyTask2.Models.Seeder;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddDbContext<BooksDbContext>(opt =>
     opt.UseInMemoryDatabase("Books"));
-//builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(typeof(AutoMappingProfiles).Assembly);
 
 var app = builder.Build();
 
@@ -16,9 +19,9 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
-    //app.UseSwagger();
-    //app.UseSwaggerUI();
 }
+
+BookSeed.AddData(app);
 
 app.UseHttpsRedirection();
 

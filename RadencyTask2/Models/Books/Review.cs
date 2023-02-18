@@ -11,8 +11,8 @@ namespace RadencyTask2.Models.Books
         public string? Message { get; set; }
 
         [ForeignKey("Book")]
-        public long BookId { get; set; }
-        public virtual Book Book { get; set; }
+        public long? BookId { get; set; }
+        public Book? Book { get; set; }
 
         public string? Reviewer { get; set; }
     }
