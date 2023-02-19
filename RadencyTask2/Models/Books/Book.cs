@@ -16,5 +16,8 @@ namespace RadencyTask2.Models.Books
         public string? Author { get; set; }
 
         public string? Genre { get; set; }
+
+        public ICollection<Rating>? Ratings { get; set; }
+        public ICollection<Review>? Reviews { get; set; }
     }
 }
