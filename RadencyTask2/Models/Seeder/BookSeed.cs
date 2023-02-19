@@ -18,7 +18,7 @@ namespace RadencyTask2.Models.Seeder
                         Cover = "Cover1",
                         Content = "Content1",
                         Author = "Author1",
-                        Genre = "Genre1"
+                        Genre = "Horror"
                     },
                     new Book
                     {
@@ -27,7 +27,7 @@ namespace RadencyTask2.Models.Seeder
                         Cover = "Cover2",
                         Content = "Content2",
                         Author = "Author2",
-                        Genre = "Genre2"
+                        Genre = "Horror"
                     },
                     new Book
                     {
@@ -36,7 +36,7 @@ namespace RadencyTask2.Models.Seeder
                         Cover = "Cover3",
                         Content = "Content3",
                         Author = "Author3",
-                        Genre = "Genre3"
+                        Genre = "Romance"
                     },
                     new Book
                     {
@@ -45,7 +45,7 @@ namespace RadencyTask2.Models.Seeder
                         Cover = "Cover4",
                         Content = "Content4",
                         Author = "Author4",
-                        Genre = "Genre4"
+                        Genre = "Horror"
                     },
                     new Book
                     {
@@ -54,7 +54,7 @@ namespace RadencyTask2.Models.Seeder
                         Cover = "Cover5",
                         Content = "Content5",
                         Author = "Author5",
-                        Genre = "Genre5"
+                        Genre = "Fantasy"
                     },
                     new Book
                     {
@@ -63,7 +63,7 @@ namespace RadencyTask2.Models.Seeder
                         Cover = "Cover6",
                         Content = "Content6",
                         Author = "Author6",
-                        Genre = "Genre6"
+                        Genre = "Horror"
                     },
                     new Book
                     {
@@ -72,7 +72,7 @@ namespace RadencyTask2.Models.Seeder
                         Cover = "Cover7",
                         Content = "Content7",
                         Author = "Author7",
-                        Genre = "Genre7"
+                        Genre = "Horror"
                     },
                     new Book
                     {
@@ -81,7 +81,7 @@ namespace RadencyTask2.Models.Seeder
                         Cover = "Cover8",
                         Content = "Content8",
                         Author = "Author8",
-                        Genre = "Genre8"
+                        Genre = "Horror"
                     },
                     new Book
                     {
@@ -90,7 +90,7 @@ namespace RadencyTask2.Models.Seeder
                         Cover = "Cover9",
                         Content = "Content9",
                         Author = "Author9",
-                        Genre = "Genre9"
+                        Genre = "Mystery"
                     },
                     new Book
                     {
@@ -99,7 +99,7 @@ namespace RadencyTask2.Models.Seeder
                         Cover = "Cover10",
                         Content = "Content10",
                         Author = "Author10",
-                        Genre = "Genre10"
+                        Genre = "Fantasy"
                     }
                 };
             db.Books.AddRange(books);

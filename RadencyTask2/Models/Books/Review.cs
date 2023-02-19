@@ -12,7 +12,7 @@ namespace RadencyTask2.Models.Books
 
         [ForeignKey("Book")]
         public long? BookId { get; set; }
-        public Book? Book { get; set; }
+        //public Book? Book { get; set; }
 
         public string? Reviewer { get; set; }
     }

@@ -6,11 +6,18 @@ namespace RadencyTask2.Models.Books.View
     {
         public AutoMappingProfiles()
         {
-            CreateMap<Book, BookView>()
-                //.ForMember(dest => dest.Rating, act => act.MapFrom(
-                //    src => src.Ratings.Average(r => r.Score)))
+            CreateMap<Book, BookShortView>()
+                .ForMember(dest => dest.Rating, act => act.MapFrom(
+                    src => src.Ratings != null && src.Ratings.Count > 0 ?
+                    (decimal?)src.Ratings.Average(r => r.Score) : (decimal?)null
+                    ))
                 .ForMember(dest => dest.ReviewsNumber, act => act.MapFrom(
                     src => src.Reviews.Count()));
+            CreateMap<Book, BookDetailView>()
+                .ForMember(dest => dest.Rating, act => act.MapFrom(
+                    src => src.Ratings != null && src.Ratings.Count > 0 ?
+                    (decimal?)src.Ratings.Average(r => r.Score) : (decimal?)null
+                    ));
         }
     }
 }

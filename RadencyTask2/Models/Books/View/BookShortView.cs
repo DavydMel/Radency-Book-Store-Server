@@ -2,7 +2,7 @@
 
 namespace RadencyTask2.Models.Books.View
 {
-    public class BookView
+    public class BookShortView
     {
         [Key]
         public long Id { get; set; }
