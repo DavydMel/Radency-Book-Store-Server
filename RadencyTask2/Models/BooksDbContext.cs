@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
 using RadencyTask2.Models.Books;
-using System;
-using System.Reflection.Metadata;
 
 namespace RadencyTask2.Models
 {

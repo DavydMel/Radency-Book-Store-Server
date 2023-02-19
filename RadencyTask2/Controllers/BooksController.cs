@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
 using RadencyTask2.Models;
 using RadencyTask2.Models.Books;
 using RadencyTask2.Models.Books.View;
-using System;
 using System.Text;
 
 namespace RadencyTask2.Controllers

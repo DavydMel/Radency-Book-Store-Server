@@ -1,8 +1,10 @@
-using AutoMapper;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.EntityFrameworkCore;
 using RadencyTask2.Models;
 using RadencyTask2.Models.Books.View;
 using RadencyTask2.Models.Seeder;
+using RadencyTask2.Models.Validation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +13,19 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddDbContext<BooksDbContext>(opt =>
     opt.UseInMemoryDatabase("Books"));
+builder.Services.AddFluentValidation(fv =>
+fv.RegisterValidatorsFromAssemblyContaining<BookValidator>());
+builder.Services.AddFluentValidation(fv =>
+fv.RegisterValidatorsFromAssemblyContaining<RatingValidator>());
 builder.Services.AddAutoMapper(typeof(AutoMappingProfiles).Assembly);
+
+builder.Services.AddHttpLogging(logging =>
+{
+    logging.LoggingFields = HttpLoggingFields.All;
+    logging.MediaTypeOptions.AddText("application/javascript");
+    logging.RequestBodyLogLimit = 4096;
+    logging.ResponseBodyLogLimit = 4096;
+});
 
 var app = builder.Build();
 
@@ -28,5 +42,9 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseDeveloperExceptionPage();
+
+app.UseHttpLogging();
 
 app.Run();
