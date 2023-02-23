@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RadencyTask2.Models;
@@ -10,6 +11,7 @@ namespace RadencyTask2.Controllers
 {
     [Route("api")]
     [ApiController]
+    [EnableCors("OpenCORSPolicy")]
     public class BooksController : ControllerBase
     {
         private readonly BooksDbContext _context;
@@ -77,7 +79,7 @@ namespace RadencyTask2.Controllers
             }
             var bookViews = _mapper.Map<List<BookShortView>>(books)
                 .OrderByDescending(bv => bv.Rating)
-                .Where(bv => bv.ReviewsNumber > 10)
+                .Where(bv => bv.ReviewsNumber >= 2)
                 .Take(10).ToList();
             return bookViews;
         }
@@ -133,14 +135,14 @@ namespace RadencyTask2.Controllers
         [HttpPost]
         public async Task<ActionResult<object>> PostBook(Book book)
         {
-            if (!string.IsNullOrEmpty(book.Cover))
-            {
-                var plainTextBytes = Encoding.UTF8.GetBytes(book.Cover);
-                book.Cover = Convert.ToBase64String(plainTextBytes);
+            //if (!string.IsNullOrEmpty(book.Cover))
+            //{
+            //    var plainTextBytes = Encoding.UTF8.GetBytes(book.Cover);
+            //    book.Cover = Convert.ToBase64String(plainTextBytes);
 
-                //var base64EncodedBytes = Convert.FromBase64String(book.Cover);
-                //Console.WriteLine(Encoding.UTF8.GetString(base64EncodedBytes));
-            }
+            //    //var base64EncodedBytes = Convert.FromBase64String(book.Cover);
+            //    //Console.WriteLine(Encoding.UTF8.GetString(base64EncodedBytes));
+            //}
 
             if (book.Id == 0)
             {

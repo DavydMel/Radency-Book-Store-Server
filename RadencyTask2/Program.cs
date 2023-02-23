@@ -19,6 +19,16 @@ builder.Services.AddFluentValidation(fv =>
 fv.RegisterValidatorsFromAssemblyContaining<RatingValidator>());
 builder.Services.AddAutoMapper(typeof(AutoMappingProfiles).Assembly);
 
+string CORSOpenPolicy = "OpenCORSPolicy";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(
+      name: CORSOpenPolicy,
+      builder => {
+          builder.WithOrigins("*").AllowAnyHeader().AllowAnyMethod();
+      });
+});
+
 builder.Services.AddHttpLogging(logging =>
 {
     logging.LoggingFields = HttpLoggingFields.All;
@@ -46,5 +56,7 @@ app.MapControllers();
 app.UseDeveloperExceptionPage();
 
 app.UseHttpLogging();
+
+app.UseCors(CORSOpenPolicy);
 
 app.Run();

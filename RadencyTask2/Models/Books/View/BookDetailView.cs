@@ -15,6 +15,8 @@ namespace RadencyTask2.Models.Books.View
 
         public string? Content { get; set; }
 
+        public string? Genre { get; set; }
+
         public decimal? Rating { get; set; }
 
         public ICollection<Review> Reviews { get; set; }
